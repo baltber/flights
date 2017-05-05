@@ -11,19 +11,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ru.gnivc.training.flight.spr.objects.City;
 import ru.gnivc.training.flight.spr.objects.Country;
 
 
 
 public class CountryDB {
      private static CountryDB instance;
+     
+     private CountryDB(){}
 
     public static CountryDB getInstance() {
         if (instance == null) {
             instance = new CountryDB();
         }
-
         return instance;
     }
     
