@@ -13,7 +13,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ru.gnivc.training.flight.database.CountryDB;
+import ru.gnivc.training.flight.database.FlightClassDB;
 import ru.gnivc.training.flight.spr.objects.Country;
+import ru.gnivc.training.flight.spr.objects.FlightClass;
 
 
 
@@ -48,7 +50,7 @@ public class TestSearch extends HttpServlet {
             
             
             
-            Country c = CountryDB.getInstance().getCountry(1);
+            FlightClass c = FlightClassDB.getInstance().getFlightClass(1);
             System.out.println(c.getName());
             
         } catch (Exception e){
