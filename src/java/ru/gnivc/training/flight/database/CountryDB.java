@@ -16,15 +16,21 @@ import ru.gnivc.training.flight.spr.objects.Country;
 
 
 public class CountryDB {
-     private static CountryDB instance;
+     private static volatile CountryDB instance;
      
      private CountryDB(){}
 
     public static CountryDB getInstance() {
-        if (instance == null) {
-            instance = new CountryDB();
+         CountryDB localInstance = instance;
+        if (localInstance == null) {
+            synchronized(CountryDB.class){
+                localInstance = instance;
+                if (localInstance == null){
+                    instance = localInstance = new CountryDB(); 
+                }
+            }
         }
-        return instance;
+        return localInstance;
     }
     
     public Country getCountry(long id) {

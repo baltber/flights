@@ -19,19 +19,21 @@ import ru.gnivc.training.flight.spr.objects.Place;
  */
 public class PlaceDB {
     
-    private static PlaceDB instance;
+    private static volatile PlaceDB instance;
     
     private PlaceDB(){}
     
     public static PlaceDB getInstance(){
-        if (instance == null){
+         PlaceDB localInstance = instance;
+        if (localInstance == null) {
             synchronized(PlaceDB.class){
-                if (instance == null){
-                    instance = new PlaceDB();
-                }
+                 localInstance = instance;
+              if (localInstance == null){
+                     instance = localInstance = new PlaceDB();
+              }  
             }
         }
-        return instance;
+        return localInstance;
     }
     
     public Place getPlace(long id){

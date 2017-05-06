@@ -13,16 +13,22 @@ import ru.gnivc.training.flight.spr.objects.FlightClass;
  * @author TaylakovSA
  */
 public class FlightClassDB {
-    private static FlightClassDB instance;
+    private static volatile FlightClassDB instance;
     
     private FlightClassDB(){
     }
     
     public static FlightClassDB getInstance(){
-        if(instance == null){
-            instance = new FlightClassDB();
+       FlightClassDB localInstance = instance;
+        if (localInstance == null) {
+            synchronized(FlightClassDB.class){
+                 localInstance = instance;
+              if (localInstance == null){
+                     instance = localInstance = new FlightClassDB();
+              }  
+            }
         }
-        return instance;
+        return localInstance;
     }
     
     public FlightClass getFlightClass(long id){

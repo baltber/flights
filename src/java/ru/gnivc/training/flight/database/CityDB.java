@@ -19,17 +19,19 @@ public class CityDB {
 
     private CityDB() {
     }
-    private static CityDB instance;
+    private static volatile CityDB instance;
 
     public static CityDB getInstance() {
-        if (instance == null) {
+       CityDB localInstance = instance;
+        if (localInstance == null) {
             synchronized(CityDB.class){
-              if (instance == null){
-                  instance = new CityDB();
-              }  
+                localInstance = instance;
+                if (localInstance == null){
+                    instance = localInstance = new CityDB(); 
+                }
             }
         }
-        return instance;
+        return localInstance;
     }
 
     public City getCity(long id) {
