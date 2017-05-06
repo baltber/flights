@@ -16,20 +16,22 @@ import ru.gnivc.training.flight.spr.objects.Place;
  * @author TaylakovSA
  */
 public class AircraftPlaceDB {
-    private static AircraftPlaceDB instance;
+    private static volatile AircraftPlaceDB instance;
     
     
     private AircraftPlaceDB(){}
     
     public static AircraftPlaceDB getInstance(){
-        if (instance == null){
+        AircraftPlaceDB localInstance = instance;
+        if (localInstance == null){
             synchronized(AircraftPlaceDB.class){
-                if (instance == null){
-                    instance = new AircraftPlaceDB();
+                localInstance = AircraftPlaceDB.instance;
+                if (localInstance == null){
+                   instance = localInstance = new AircraftPlaceDB();
                 }
             }
         }
-        return instance;
+        return localInstance;
     }
     
     public AircraftPlace getAircraftPlace(long id){

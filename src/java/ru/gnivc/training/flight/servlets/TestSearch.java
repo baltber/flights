@@ -16,10 +16,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import ru.gnivc.training.flight.database.AircraftDB;
 import ru.gnivc.training.flight.database.AircraftPlaceDB;
+import ru.gnivc.training.flight.database.CompanyDB;
 import ru.gnivc.training.flight.database.CountryDB;
 import ru.gnivc.training.flight.database.FlightClassDB;
 import ru.gnivc.training.flight.database.PlaceDB;
 import ru.gnivc.training.flight.spr.objects.Aircraft;
+import ru.gnivc.training.flight.spr.objects.Company;
 import ru.gnivc.training.flight.spr.objects.Country;
 import ru.gnivc.training.flight.spr.objects.FlightClass;
 import ru.gnivc.training.flight.spr.objects.Place;
@@ -56,12 +58,8 @@ public class TestSearch extends HttpServlet {
 //            out.println("</html>");
             
             
-            List<Place> list = new ArrayList<>();
-            Aircraft air = AircraftDB.getInstance().getAircraft(2);
-            list = air.getPlaceList();
-            for(Place place : list){
-             System.out.println(place.getSeat());   
-            }
+            Company c = CompanyDB.getInstance().getCompany(1);
+            System.out.println(c.getName());
             
             
         } catch (Exception e){

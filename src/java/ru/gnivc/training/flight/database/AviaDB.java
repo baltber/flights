@@ -13,14 +13,19 @@ public class AviaDB {
     
     private AviaDB() {
     }
-    private static AviaDB instance;
+    private static volatile AviaDB instance;
 
     public static AviaDB getInstance() {
-        if (instance == null) {
-            instance = new AviaDB();
+        AviaDB localInstance = instance;
+        if (localInstance == null) {
+            synchronized(AviaDB.class){
+                localInstance = instance;
+                if (localInstance == null){
+                    instance = localInstance = new AviaDB(); 
+                }
+            }
         }
-
-        return instance;
+        return localInstance;
     }
 
     public Connection getConnection() {

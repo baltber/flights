@@ -14,19 +14,21 @@ import ru.gnivc.training.flight.spr.objects.Aircraft;
  * @author TaylakovSA
  */
 public class AircraftDB {
-     private static AircraftDB instance;
+     private static volatile AircraftDB instance;
     
     private AircraftDB(){}
     
     public static AircraftDB getInstance(){
-        if (instance == null){
+        AircraftDB localInstance = AircraftDB.instance;
+        if (localInstance == null){
             synchronized(AircraftDB.class){
-                if (instance == null){
-                    instance = new AircraftDB();
+                 localInstance = AircraftDB.instance;
+                if (localInstance == null){
+                     AircraftDB.instance = localInstance = new AircraftDB();
                 }
             }
         }
-        return instance;
+        return localInstance;
     }
     
     public Aircraft getAircraft(long id){
