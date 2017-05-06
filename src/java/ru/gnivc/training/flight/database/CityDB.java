@@ -23,9 +23,12 @@ public class CityDB {
 
     public static CityDB getInstance() {
         if (instance == null) {
-            instance = new CityDB();
+            synchronized(CityDB.class){
+              if (instance == null){
+                  instance = new CityDB();
+              }  
+            }
         }
-
         return instance;
     }
 

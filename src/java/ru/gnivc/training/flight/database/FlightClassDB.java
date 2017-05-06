@@ -57,7 +57,7 @@ public class FlightClassDB {
     
     private PreparedStatement getFlightClassStmt(long id) throws SQLException{
         Connection conn = AviaDB.getInstance().getConnection();
-        PreparedStatement stmt = conn.prepareStatement("select * from spr_aircraft where id=?");
+        PreparedStatement stmt = conn.prepareStatement("select * from spr_flight_class where id=?");
         stmt.setLong(1, id);
         return stmt;
     }

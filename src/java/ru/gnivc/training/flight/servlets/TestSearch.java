@@ -7,15 +7,22 @@ package ru.gnivc.training.flight.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ru.gnivc.training.flight.database.AircraftDB;
+import ru.gnivc.training.flight.database.AircraftPlaceDB;
 import ru.gnivc.training.flight.database.CountryDB;
 import ru.gnivc.training.flight.database.FlightClassDB;
+import ru.gnivc.training.flight.database.PlaceDB;
+import ru.gnivc.training.flight.spr.objects.Aircraft;
 import ru.gnivc.training.flight.spr.objects.Country;
 import ru.gnivc.training.flight.spr.objects.FlightClass;
+import ru.gnivc.training.flight.spr.objects.Place;
 
 
 
@@ -49,9 +56,13 @@ public class TestSearch extends HttpServlet {
 //            out.println("</html>");
             
             
+            List<Place> list = new ArrayList<>();
+            Aircraft air = AircraftDB.getInstance().getAircraft(2);
+            list = air.getPlaceList();
+            for(Place place : list){
+             System.out.println(place.getSeat());   
+            }
             
-            FlightClass c = FlightClassDB.getInstance().getFlightClass(1);
-            System.out.println(c.getName());
             
         } catch (Exception e){
             
